@@ -1,11 +1,12 @@
 package com.luv2code.aopdemo;
 
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.luv2code.aopdemo.dao.AccountDAO;
-import com.luv2code.aopdemo.dao.MembershipDAO;
 
-public class MainDemoApp {
+public class AfterReturningDemoApp {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -13,9 +14,9 @@ public class MainDemoApp {
 		
 		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
 		
-		theAccountDAO.addAccount(new Account("manuply", "admin"), true);
-		theAccountDAO.setName("account");
-		theAccountDAO.setServiceCode("1");
+		List<Account> theAccounts = theAccountDAO.findAccounts(false);
+		
+		theAccounts.stream().forEach(x -> System.out.println(x));
 		
 		context.close();
 	}
